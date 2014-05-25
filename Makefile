@@ -32,7 +32,7 @@ all: $(PROG).hex
 $(PROG).hex: $(PROG).elf
 	$(OBJ) -O ihex -R .eeprom $(PROG).elf $(PROG).hex
 
-$(PROG).elf: main.o adc.o io.o tim0.o
+$(PROG).elf: main.o adc.o io.o tim0.o fft.o
 	$(CC) $(CFLAGS) $^ -o $(PROG).elf $(LDFLAGS) 
 
 %.o: %.c %.h

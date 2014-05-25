@@ -2,7 +2,6 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
-#include <math.h>
 #include "global.h"
 #include "fft.h"
 #include "adc.h"
@@ -20,20 +19,7 @@ int main()
 
 	while(TRUE)
 	{
-		cli();
-		io_blink_on();
-		uint8_t i;
-		double real = 0, img = 0;
-		for (i = 0; i < SAMPLE_SIZE; ++i)
-		{
-			real += fft_get_value(i) * cos(-2*3.141592654*FFT_K*i/SAMPLE_SIZE);
-			img += fft_get_value(i) * sin(-2*3.141592654*FFT_K*i/SAMPLE_SIZE);
-		}
-		double module = sqrt(real * real + img * img);
-		io_blink_off();
-		module +=1;
-		sei();
-		_delay_ms(10);
+		fft_compute_fft();
 	}
 	return EXIT_SUCCESS;
 }

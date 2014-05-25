@@ -6,10 +6,12 @@
 
 static volatile voidFuncPtr tim0_ovf_interrupt_function = 0;
 
+// Use Timer to sample ADC with specy frequency
+
 void tim0_init()
 {
 	// Set prescaler of TIMER 0
-	tim0_set_prescaler(TIM0_PRESCALER_8);
+	tim0_set_prescaler(TIM0_PRESCALER_1);
 
 	// Enable OVF Interrupt
 	tim0_enable_ovf_interrupt();
@@ -43,7 +45,6 @@ void tim0_detach_interrupt()
 
 ISR(TIMER0_OVF_vect)
 {
-	TCNT0 += 156;
 	if (tim0_ovf_interrupt_function)
 		tim0_ovf_interrupt_function();
 }

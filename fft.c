@@ -2,6 +2,8 @@
 #include "global.h"
 #include "adc.h"
 #include <inttypes.h>
+#include <avr/interrupt.h>
+#include <math.h>
 
 volatile static FFTRingBuffer FFTbuffer;
 
@@ -19,6 +21,27 @@ void fft_interrupt()
 uint16_t fft_get_value(uint8_t arg)
 {
 	return FFT_ring_buffer_read(arg);
+}
+
+double fft_compute_fft()
+{
+	// First, commit value from Ring buffer
+	uint16_t buffer[SAMPLE_SIZE];
+	uint8_t i;
+	cli();
+	for (i = 0; i < SAMPLE_SIZE; ++i)
+	{
+		buffer[i] = FFTbuffer.buffer[(FFTbuffer.head+i) % SAMPLE_SIZE];
+	}
+	sei();
+
+	double real = 0, img = 0;
+	for (i = 0; i < SAMPLE_SIZE; ++i)
+	{
+		real += buffer[i] * cos(-2*3.141592654*FFT_K*i/SAMPLE_SIZE);
+		img += buffer[i] * sin(-2*3.141592654*FFT_K*i/SAMPLE_SIZE);
+	}
+	return real * real + img * img;
 }
 
 inline void FFT_ring_buffer_init()

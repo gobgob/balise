@@ -20,7 +20,7 @@ typedef struct FFTRingBuffer {
 void fft_init();
 void fft_interrupt();
 uint16_t fft_get_value(uint8_t arg);
-double fft_compute_fft();
+double fft_compute_fft(uint8_t coef);
 
 inline void FFT_ring_buffer_init();
 inline void FFT_ring_buffer_write(uint16_t value);

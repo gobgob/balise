@@ -23,7 +23,7 @@ uint16_t fft_get_value(uint8_t arg)
 	return FFT_ring_buffer_read(arg);
 }
 
-double fft_compute_fft()
+double fft_compute_fft(uint8_t coef)
 {
 	// First, commit value from Ring buffer
 	uint16_t buffer[SAMPLE_SIZE];
@@ -38,10 +38,10 @@ double fft_compute_fft()
 	double real = 0, img = 0;
 	for (i = 0; i < SAMPLE_SIZE; ++i)
 	{
-		real += buffer[i] * cos(-2*3.141592654*FFT_K*i/SAMPLE_SIZE);
-		img += buffer[i] * sin(-2*3.141592654*FFT_K*i/SAMPLE_SIZE);
+		real += buffer[i] * cos(-2*3.141592654*coef*i/SAMPLE_SIZE);
+		img += buffer[i] * sin(-2*3.141592654*coef*i/SAMPLE_SIZE);
 	}
-	return real * real + img * img;
+	return sqrt(real * real + img * img);
 }
 
 inline void FFT_ring_buffer_init()

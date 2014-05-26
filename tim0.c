@@ -48,3 +48,13 @@ ISR(TIMER0_OVF_vect)
 	if (tim0_ovf_interrupt_function)
 		tim0_ovf_interrupt_function();
 }
+
+ISR(TIMER0_COMPA_vect)
+{
+
+}
+
+ISR(TIMER0_COMPB_vect)
+{
+
+}

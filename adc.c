@@ -9,7 +9,7 @@ static volatile voidFuncPtr adc_interrupt_function = 0;
 void adc_init(uint8_t prescaler, uint8_t adc_selected)
 {
 	// Config multiplexeur
-	ADMUX = REF_VOLTAGE_INTERNAL | adc_selected;
+	ADMUX = REF_VOLTAGE_AVCC | adc_selected;
 
 	//Config Prescaler
 	uint8_t adcsra = ADCSRA & 0xf8;
@@ -49,12 +49,7 @@ void adc_config_auto_trigger(uint8_t config)
 
 uint8_t adc_is_converted()
 {
-	return gbi(ADCSRA, ADIF);
-}
-
-void adc_is_converted_clear()
-{
-	sbi(ADCSRA, ADIF);
+	return gbi(ADCSRA, ADSC);
 }
 
 void adc_enable_interrupt()
@@ -69,9 +64,10 @@ void adc_disable_interrupt()
 
 uint16_t adc_get_converted_value()
 {
-	uint16_t value = ADCL;
-	value |= (ADCH << 8);
-	return value;
+	uint8_t high, low;
+	low = ADCL;
+	high = ADCH;
+	return (high << 8) | low;
 }
 
 void adc_attach_interrupt(void (*userFunc)(void))

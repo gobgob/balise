@@ -39,7 +39,6 @@ void adc_auto_trigger_start();
 void adc_auto_trigger_stop();
 void adc_config_auto_trigger(uint8_t config);
 uint8_t adc_is_converted();
-void adc_is_converted_clear();
 void adc_enable_interrupt();
 void adc_disable_interrupt();
 uint16_t adc_get_converted_value();

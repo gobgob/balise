@@ -12,6 +12,8 @@
 // Compute K = F * N / fe
 #define FFT_K 3
 
+ #define FFT_VALUE_CMP 200
+
 typedef struct FFTRingBuffer {
 	uint16_t buffer[SAMPLE_SIZE];
 	uint8_t head;

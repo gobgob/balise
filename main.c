@@ -20,17 +20,11 @@ int main()
 
 	while(TRUE)
 	{
-		uint8_t i;
-		cli();
-		for (i = 0; i < SAMPLE_SIZE; ++i)
-		{
-			uart_send_uint8_t(i);
-			uart_send_char(';');
-			uart_send_uint32_t((uint32_t)fft_compute_fft(i));
-			uart_send_ln();
+		if (fft_compute_fft(FFT_K) >= FFT_VALUE_CMP) {
+			io_blink_on();
+		} else {
+			io_blink_off();
 		}
-		sei();
-		_delay_ms(10000);
 	}
 	return EXIT_SUCCESS;
 }

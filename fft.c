@@ -1,6 +1,7 @@
 #include "fft.h"
 #include "global.h"
 #include "adc.h"
+#include "sin_table.h"
 #include <inttypes.h>
 #include <avr/interrupt.h>
 #include <math.h>
@@ -38,8 +39,8 @@ double fft_compute_fft(uint8_t coef)
 	double real = 0, img = 0;
 	for (i = 0; i < SAMPLE_SIZE; ++i)
 	{
-		real += buffer[i] * cos(-2*3.141592654*coef*i/SAMPLE_SIZE);
-		img += buffer[i] * sin(-2*3.141592654*coef*i/SAMPLE_SIZE);
+		real += buffer[i] * cos_table(i);
+		img += buffer[i] * sin_table(i);
 	}
 	return sqrt(real * real + img * img);
 }

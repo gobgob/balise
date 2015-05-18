@@ -4,7 +4,7 @@
 CROSS?=avr-
 CC=$(CROSS)gcc
 OBJ=$(CROSS)objcopy
-MMCU=atmega328
+MMCU=atmega328p
 FCPU=16000000
 
 ################################################################################
@@ -18,6 +18,9 @@ SPEEDPROG=
 #PROGRAMMER=-c usbtiny $(SPEEDPROG)
 #PROGRAMMER=-c usbasp $(SPEEDPROG)
 PROGRAMMER=-P /dev/ttyUSB0 -c stk500v1 -b 57600
+LOW_FUSE=0xbf
+HIGH_FUSE=0xde
+
 
 ################################################################################
 #                               VAR TO COMPILE                                 #
@@ -42,9 +45,9 @@ upload: all
 	avrdude $(PROGRAMMER) -p $(MMCUPROG) -U flash:w:$(PROG).hex
 
 fuse:
-	avrdude $(PROGRAMMER) -p $(MMCUPROG) -U lfuse:w:0x72:m -U hfuse:w:0xff:m
+	avrdude $(PROGRAMMER) -p $(MMCUPROG) -U hfuse:w:$(HIGH_FUSE):m -U lfuse:w:$(LOW_FUSE):m
 
 clean:
-	rm -f *.o *.elf *.hex
+	rm -f *.o *.elf *.hex *.gch
 
 .PHONY: clean upload fuse

@@ -1,0 +1,7 @@
+Un premier recepteur (rx.sch et rx.brd) que j'ai raté à la fabrication. De plus, la masse virtuel oscille à 5kHz environ avec une amplitude de 1V.
+
+Fabrication d'un autre récepteur en 2 modules : 
+	* Module 1 : Le décodage du signal (ampli et filtre simple) pour 2 voies avec masse virtuel sur suiveur d'un AO.
+	* Module 2 : Carte micro pour un ATmega328p (que l'on peut remplacer par un arduino si on veut).
+
+Emetteur qui controle les LED avec un microcontroleur.

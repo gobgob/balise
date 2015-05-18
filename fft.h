@@ -7,12 +7,15 @@
 
 // Sample Size is > 2 * fe / F (because Shannon)
 // fe = 62.5khZ and F = 1464
+
+// New fe = 78125Hz (because cristal is 20MHz)
 #define SAMPLE_SIZE 128
 
 // Compute K = F * N / fe
-#define FFT_K 3
+//#define FFT_K 2 // K=2, fe = 78125Hz et N = 128 ==> F = 1220.7Hz
+#define FFT_K 3 // K=3, fe = 62500Hz et N = 128 ==> F = 1464 Hz
 
- #define FFT_VALUE_CMP 200
+#define FFT_VALUE_CMP 150000000
 
 typedef struct FFTRingBuffer {
 	uint16_t buffer[SAMPLE_SIZE];

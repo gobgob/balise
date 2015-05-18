@@ -42,7 +42,13 @@ double fft_compute_fft(uint8_t coef)
 		real += buffer[i] * cos_table(i);
 		img += buffer[i] * sin_table(i);
 	}
-	return sqrt(real * real + img * img);
+	return real * real + img * img;
+	//return sqrt(real * real + img * img);
+}
+
+long fft_get_computed_long(uint8_t coef)
+{
+	return (long)round(fft_compute_fft(coef));
 }
 
 inline void FFT_ring_buffer_init()

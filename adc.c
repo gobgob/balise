@@ -26,6 +26,11 @@ void adc_init(uint8_t prescaler, uint8_t adc_selected)
 	sbi(ADCSRA, ADEN);
 }
 
+void adc_select(uint8_t adc_selected)
+{
+	ADMUX = REF_VOLTAGE_AVCC | adc_selected;
+}
+
 void adc_start_conversion()
 {
 	sbi(ADCSRA, ADSC);

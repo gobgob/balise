@@ -34,6 +34,7 @@
 #define ADC_AUTO_TRIGGER_SOURCE_TIM1_CAPTURE ( 1 << ADTS2 ) | ( 1 << ADTS1 ) | ( 1 << ADTS0 )
 
 void adc_init(uint8_t prescaler, uint8_t adc_selected);
+void adc_select(uint8_t adc_selected);
 void adc_start_conversion();
 void adc_auto_trigger_start();
 void adc_auto_trigger_stop();

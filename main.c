@@ -20,8 +20,22 @@ int main()
 
 	while(TRUE)
 	{
+		// uart_send_int32_t(fft_get_computed_long(FFT_K));
+		// uart_send_char('\n');
+		// uart_send_char('\r');
+		adc_select(ADC0);
+		_delay_ms(20);
 		if (fft_compute_fft(FFT_K) >= FFT_VALUE_CMP) {
 			io_blink_on();
+			uart_send_char('@');
+		} else {
+			io_blink_off();
+		}
+		adc_select(ADC1);
+		_delay_ms(20);
+		if (fft_compute_fft(FFT_K) >= FFT_VALUE_CMP) {
+			io_blink_on();
+			uart_send_char('&');
 		} else {
 			io_blink_off();
 		}

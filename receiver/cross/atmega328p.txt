@@ -1,0 +1,31 @@
+[binaries]
+c = 'avr-gcc'
+cpp = 'avr-g++'
+ar = 'avr-ar'
+strip = 'avr-strip'
+objcopy = 'avr-objcopy'
+
+[properties]
+avrdude_speed = '57600'
+avrdude_programmer = 'stk500v1'
+
+[built-in options]
+c_args = [
+  '-ffunction-sections',
+  '-fdata-sections',
+  '-fpack-struct',
+  '-fshort-enums',
+  '-funsigned-char',
+  '-funsigned-bitfields',
+  '-mmcu=atmega328p',
+  '-DF_CPU=16000000L',
+  ]
+
+c_link_args = ['-Wl,--gc-sections', '-mmcu=atmega328p']
+cpp_link_args = ['-Wl,--gc-sections', '-mmcu=atmega328p']
+
+[host_machine]
+system = 'baremetal'
+cpu_family = 'avr'
+cpu = 'm328p'
+endian = 'little'

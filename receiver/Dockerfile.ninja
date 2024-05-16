@@ -1,0 +1,28 @@
+FROM alpine:3.19.1
+
+# Install dependencies
+RUN apk update
+
+RUN apk add cunit-dev
+RUN apk add ninja-build
+RUN apk add meson
+RUN apk add alpine-sdk
+RUN apk add gcc-avr avr-libc
+RUN apk add avrdude
+
+# Set workdir
+WORKDIR /app
+
+# Compile program
+CMD echo "Remove build directory" && rm -rf build && \
+    echo "Build project with meson" && meson setup --cross-file cross/atmega328p.txt build && \
+    echo "Compile unit test with ninja and execute unit test" && cd build && ninja test
+
+# Build docker image
+# docker build -f Dockerfile.ninja . --tag receiver-compile-ninja
+
+# Execute unit test
+# docker run --rm -it --volume ${PWD}:/app receiver-compile-ninja
+
+# Execute bash in docker
+# docker run --rm -it --volume ${PWD}:/app --entrypoint sh receiver-compile-ninja

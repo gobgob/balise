@@ -12,23 +12,23 @@ avrdude_speed = meson.get_external_property('avrdude_speed')
 avrdude_programmer = meson.get_external_property('avrdude_programmer')
 
 srcs = [
-    'adc.c',
-    'fft.c',
-    'io.c',
-    'sin_table.c',
-    'tim0.c',
-    'uart.c'
+    'src/adc.c',
+    'src/fft.c',
+    'src/io.c',
+    'src/sin_table.c',
+    'src/tim0.c',
+    'src/uart.c'
 ]
 
 includes = [
-    '.'
+    'include'
 ]
 
 # compile code as static library to use in unit test
 main_lib = static_library('main_lib', srcs, include_directories : includes)
 main_dep = declare_dependency(link_with : main_lib, include_directories : includes)
 
-exe = executable('receiver.elf', 'main.c', include_directories : includes, dependencies : main_dep)
+exe = executable('receiver.elf', 'src/main.c', include_directories : includes, dependencies : main_dep)
 
 objcopy = find_program('avr-objcopy')
 hex = custom_target('hex',

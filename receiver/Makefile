@@ -25,7 +25,7 @@ HIGH_FUSE=0xde
 ################################################################################
 #                               VAR TO COMPILE                                 #
 ################################################################################
-CFLAGS=-Wall -Werror -O3 -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields -mmcu=$(MMCU) -DF_CPU=$(FCPU)
+CFLAGS=-Wall -O3 -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields -mmcu=$(MMCU) -DF_CPU=$(FCPU)
 CPPFLAGS=-I.
 LDFLAGS=
 PROG=balise
